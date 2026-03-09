@@ -1,0 +1,16 @@
+{
+  "name": "python-streamlit",
+	"image": "mcr.microsoft.com/devcontainers/base:debian-12",
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {"version": "3.12"}
+	},
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y sqlite3 libsqlite3-dev",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "alexcvzz.vscode-sqlite"
+      ]
+    }
+  }
+}
