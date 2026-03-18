@@ -1,9 +1,17 @@
 {
   "name": "python-streamlit",
-	"image": "mcr.microsoft.com/devcontainers/base:debian-12",
-	"features": {
-		"ghcr.io/devcontainers/features/python:1": {"version": "3.12"}
-	},
+  "image": "mcr.microsoft.com/devcontainers/base:debian-12",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    }
+  },
+  "mounts": [
+    "source=/tmp/ssh-idoRFNnyKuXx/agent.22521,target=/ssh-agent,type=bind"
+  ],
+  "remoteEnv": {
+    "SSH_AUTH_SOCK": "/ssh-agent"
+  },
   "postCreateCommand": "sudo apt-get update && sudo apt-get install -y sqlite3 libsqlite3-dev",
   "customizations": {
     "vscode": {
