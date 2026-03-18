@@ -2,7 +2,6 @@ import streamlit as st
 from utils.clientes import listar_clientes
 from app.app_cliente import st_cliente
 from app.app_estoque import st_estoque
-from app.app_pedidos import st_pedidos
 
 st.set_page_config(page_title="Aplicativo Empresa do Maurício", layout="wide")
 
