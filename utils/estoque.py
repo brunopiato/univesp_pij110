@@ -1,14 +1,20 @@
 import sqlite3
 import pandas as pd
+from pathlib import Path
+
+# caminho do banco
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_PATH = BASE_DIR / "db" / "database.db"
+
 
 def cadastrar_estoque(
     nome: str,
     qtd_estoque: int,
     preco: float
 ):
-    conn = sqlite3.connect('/workspaces/pij110/db/database.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
+
     cursor.execute(
         """
             INSERT INTO estoque (nome, qtd_estoque, preco)
@@ -28,8 +34,8 @@ def listar_estoque():
 
     Returns:
         pd.DataFrame: DataFrame de Pandas com todos os estoques cadastrados
-    """    
-    conn = sqlite3.connect('/workspaces/pij110/db/database.db')
+    """
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -44,6 +50,7 @@ def listar_estoque():
     estoque = cursor.fetchall()
     conn.close()
 
-    df_estoque = pd.DataFrame(estoque, columns=['ID', 'Nome', 'Quantidade em Estoque', 'Preço', 'Data de Atualização'])
+    df_estoque = pd.DataFrame(estoque, columns=[
+                              'ID', 'Nome', 'Quantidade em Estoque', 'Preço', 'Data de Atualização'])
 
     return df_estoque

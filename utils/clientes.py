@@ -1,5 +1,11 @@
 import sqlite3
 import pandas as pd
+from pathlib import Path
+
+# caminho do banco
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_PATH = BASE_DIR / "db" / "database.db"
+
 
 def cadastrar_cliente(
     cpf: str,
@@ -14,8 +20,8 @@ def cadastrar_cliente(
         nome (str): Nome do cliente
         email (str): Endereço de e-mail do cliente
         endereco (str): Endereço físico do cliente
-    """    
-    conn = sqlite3.connect('/workspaces/pij110/db/database.db')
+    """
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     cursor.execute(
@@ -29,7 +35,8 @@ def cadastrar_cliente(
     conn.commit()
     conn.close()
 
-    print(f"Cliente '{nome}' cadastrado com sucesso!")
+    print(
+        f"Cliente '{nome}' cadastrado com sucesso!")
 
 
 def listar_clientes():
@@ -37,8 +44,8 @@ def listar_clientes():
 
     Returns:
         pd.DataFrame: DataFrame de Pandas com todos os clientes cadastrados
-    """    
-    conn = sqlite3.connect('/workspaces/pij110/db/database.db')
+    """
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -53,13 +60,16 @@ def listar_clientes():
     clientes = cursor.fetchall()
     conn.close()
 
-    df_clientes = pd.DataFrame(clientes, columns=['ID', 'CPF', 'Nome', 'Email', 'Endereço'])
+    df_clientes = pd.DataFrame(
+        clientes, columns=['ID', 'CPF', 'Nome', 'Email', 'Endereço'])
+
+    print(f"Banco de dados usado: {DB_PATH}")
 
     return df_clientes
 
 
 def excluir_cliente(cliente_id):
-    conn = sqlite3.connect('/workspaces/pij110/db/database.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     cursor.execute(
@@ -74,7 +84,7 @@ def excluir_cliente(cliente_id):
 
 
 # def atualizar_cliente(cliente_id, nome, email, telefone):
-#     conn = sqlite3.connect('/workspaces/pij110/db/database.db')
+#     conn = sqlite3.connect(DB_PATH)
 #     cursor = conn.cursor()
 
 #     cursor.execute(
@@ -88,7 +98,7 @@ def excluir_cliente(cliente_id):
 #     conn.close()
 
 # def buscar_cliente_por_id(cliente_id):
-#     conn = sqlite3.connect('/workspaces/pij110/db/database.db')
+#     conn = sqlite3.connect(DB_PATH)
 #     cursor = conn.cursor()
 
 #     cursor.execute('SELECT id, nome, email, telefone FROM clientes WHERE id = ?', (cliente_id,))
