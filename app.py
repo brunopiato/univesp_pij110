@@ -1,40 +1,67 @@
+# -*- coding: utf-8 -*-
+# @Author: Bruno Piato
+# @Date:   2026-03-18 16:10:49
+# @Last Modified by:   Bruno Piato
+# @Last Modified time: 2026-03-30 20:21:41
 import streamlit as st
-from utils.clientes import listar_clientes
-from app.app_cliente import st_cliente
-from app.app_estoque import st_estoque
+from app.app_estoque import st_verificar_estoque, st_cadastrar_componente, st_remover_componente
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 st.set_page_config(page_title="Aplicativo Empresa do Maurício", layout="wide")
 
 st.title("Aplicativo Empresa do Maurício")
 
-st.sidebar.markdown('# Aplicativo da Empresa')
+# Sessão para armazenar o estado do login
+if 'logged_in' not in st.session_state:
+    st.session_state.logged_in = False
 
-st.sidebar.header("Menu")
+# Função para realizar o login
+def login(username, password):
+    # Substitua com a lógica de autenticação real
+    return username == os.getenv("username") and password == os.getenv("password")
 
-# Exemplo de estrutura para usar funções do módulo utils
-option = st.sidebar.selectbox(
-    "Escolha uma opção",
-    [
-        "Home",
-        "Cliente",
-        "Estoque",
-        "Pedidos",
-    ]
-)
+if not st.session_state.logged_in:
+    st.sidebar.markdown('# Login')
+    st.sidebar.header("Acesso Restrito")
 
-if option == "Home":
+    username = st.sidebar.text_input("Usuário")
+    password = st.sidebar.text_input("Senha", type="password")
+
+    if st.sidebar.button("Entrar"):
+        if login(username, password):
+            st.session_state.logged_in = True
+            st.rerun()  # Recarrega a página imediatamente após o login
+        else:
+            st.sidebar.error("Usuário ou senha incorretos.")
+
     st.subheader("Bem-vindo ao Aplicativo da Empresa")
-    st.info("Selecione uma opção no menu para continuar.")
-elif option == "Cliente":
-    st.subheader("Lista de Clientes")
-    st_cliente()
-elif option == "Estoque":
-    st.subheader("Gerenciamento de Estoque")
-    st.info("Funcionalidade de estoque em desenvolvimento.")
-    st_estoque()
-elif option == "Pedidos":    
-    st.subheader("Gerenciamento de pedidos")
-    st.info("Funcionalidade de pedidos em desenvolvimento.")
-    st_pedidos()
+    st.info("Faça login para acessar as funcionalidades.")
+else:
+    st.sidebar.markdown('# Aplicativo da Empresa')
+    st.sidebar.header("Menu")
 
-st.sidebar.info("Use o menu para navegar entre as opções")
+    option = st.sidebar.selectbox(
+        "Escolha uma opção",
+        [
+            "Home",
+            "Verificar Estoque",
+            "Cadastrar Componente",
+            "Remover Componente",
+        ]
+    )
+
+    if option == "Home":
+        st.subheader("Bem-vindo ao Aplicativo da Empresa")
+        st.info("Selecione uma opção no menu para continuar.")
+    elif option == "Verificar Estoque":
+        # st.subheader("Gerenciamento de Estoque")
+        st_verificar_estoque()
+    elif option == "Cadastrar Componente":
+        st_cadastrar_componente()
+    elif option == "Remover Componente":
+        st_remover_componente()
+
+    st.sidebar.info("Use o menu para navegar entre as opções")
