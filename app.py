@@ -2,17 +2,19 @@
 # @Author: Bruno Piato
 # @Date:   2026-03-18 16:10:49
 # @Last Modified by:   Bruno Piato
-# @Last Modified time: 2026-03-30 20:21:41
+# @Last Modified time: 2026-03-31 07:47:22
+
 import streamlit as st
 from app.app_estoque import st_verificar_estoque, st_cadastrar_componente, st_remover_componente
+from app.app_home import st_home
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-st.set_page_config(page_title="Aplicativo Empresa do Maurício", layout="wide")
+st.set_page_config(page_title="Mauricio Henrique Camargo", layout="wide")
 
-st.title("Aplicativo Empresa do Maurício")
+st.title("Mauricio Henrique Camargo")
 
 # Sessão para armazenar o estado do login
 if 'logged_in' not in st.session_state:
@@ -37,10 +39,10 @@ if not st.session_state.logged_in:
         else:
             st.sidebar.error("Usuário ou senha incorretos.")
 
-    st.subheader("Bem-vindo ao Aplicativo da Empresa")
+    st.subheader("Bem-vindo ao Aplicativo de Gerenciamento de Estoque")
     st.info("Faça login para acessar as funcionalidades.")
 else:
-    st.sidebar.markdown('# Aplicativo da Empresa')
+    st.sidebar.markdown('# Gerenciador de Estoque')
     st.sidebar.header("Menu")
 
     option = st.sidebar.selectbox(
@@ -54,13 +56,16 @@ else:
     )
 
     if option == "Home":
-        st.subheader("Bem-vindo ao Aplicativo da Empresa")
-        st.info("Selecione uma opção no menu para continuar.")
+        st.subheader("Bem-vindo ao Aplicativo de Gerenciamento de Estoque")
+        st.info("Selecione uma opção no menu ao lado para continuar.")
+        st_home()
+
     elif option == "Verificar Estoque":
-        # st.subheader("Gerenciamento de Estoque")
         st_verificar_estoque()
+
     elif option == "Cadastrar Componente":
         st_cadastrar_componente()
+        
     elif option == "Remover Componente":
         st_remover_componente()
 
