@@ -2,11 +2,10 @@
 # @Author: Bruno Piato
 # @Date:   2026-03-18 16:10:49
 # @Last Modified by:   Bruno Piato
-# @Last Modified time: 2026-03-31 16:26:38
+# @Last Modified time: 2026-03-31 16:40:15
 
 
 import streamlit as st
-from dotenv import load_dotenv
 
 from app.app_estoque import (
     st_cadastrar_componente,
@@ -15,8 +14,6 @@ from app.app_estoque import (
 )
 from app.app_home import st_home
 from utils.configuracao_db import buscar_usuario, verificar_senha
-
-load_dotenv()
 
 st.set_page_config(page_title="Mauricio Henrique Camargo", layout="wide")
 
