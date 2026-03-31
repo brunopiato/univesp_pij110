@@ -1,0 +1,41 @@
+line-length = 88
+indent-width = 4
+
+[lint]
+select = [
+    "F", # Pyflakes (The basics)
+    "E", "W", # pycodestyle (PEP8)
+    "B", # flake8-bugbear (Critical logic bugs)
+    "UP", # pyupgrade (Syntax modernization)
+    "I", # isort (Import sorting)
+    "N", # pep8-naming (Naming conventions)
+    "C4", # flake8-comprehensions (Performance/readability)
+    "LOG", # flake8-logging (Logging best practices)
+    "PIE", # flake8-pie (Common anti-patterns)
+    "PTH", # flake8-use-pathlib (Modern filesystem handling)
+    "RET", # flake8-return (Return statement cleanup)
+    "SIM", # flake8-simplify (Code flattening)
+    "PERF", # Perflint (Performance optimizations)
+    "D", # pydocstyle (Docstring formatting)
+    "C90", # mccabe (Complexity checking)
+    "PLE", # Pylint Error
+    "PLR", # Pylint Refactor
+    "PLW", # Pylint Warning
+]
+
+ignore = [
+    # Formatter Conflicts
+    "COM812", "COM819", # Trailing comma
+    "ISC001", "ISC002", # Implicit string concatenation
+    "W191", "E111", "E114", "E117", "D206", # Indentation
+    "D300", "Q000", "Q001", "Q002", "Q003", # Quotes
+
+    "D100", # Missing docstring in public module
+    "D104", # Missing docstring in public package
+    "D203", # One-blank-line-before-class (Conflict)
+    "D213", # Multi-line-summary-second-line (Conflict)
+    "PLR2004", # Magic value used in comparison
+    "E501", # Line too long, will be handled by formatter
+    "UP009", # UTF encoding
+    "UP035", # Deprecated imports
+]

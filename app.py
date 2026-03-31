@@ -2,13 +2,19 @@
 # @Author: Bruno Piato
 # @Date:   2026-03-18 16:10:49
 # @Last Modified by:   Bruno Piato
-# @Last Modified time: 2026-03-31 07:47:22
+# @Last Modified time: 2026-03-31 16:26:38
+
 
 import streamlit as st
-from app.app_estoque import st_verificar_estoque, st_cadastrar_componente, st_remover_componente
-from app.app_home import st_home
-import os
 from dotenv import load_dotenv
+
+from app.app_estoque import (
+    st_cadastrar_componente,
+    st_remover_componente,
+    st_verificar_estoque,
+)
+from app.app_home import st_home
+from utils.configuracao_db import buscar_usuario, verificar_senha
 
 load_dotenv()
 
@@ -22,8 +28,12 @@ if 'logged_in' not in st.session_state:
 
 # Função para realizar o login
 def login(username, password):
-    # Substitua com a lógica de autenticação real
-    return username == os.getenv("username") and password == os.getenv("password")
+    """Função para verificar se as informações fornecidas no login estão presentes no banco de dado."""
+    usuario_db = buscar_usuario(username)
+
+    # usuario_db[1] é a senha_hash vinda do banco
+    return usuario_db and verificar_senha(password, usuario_db[1])
+
 
 if not st.session_state.logged_in:
     st.sidebar.markdown('# Login')
@@ -65,7 +75,7 @@ else:
 
     elif option == "Cadastrar Componente":
         st_cadastrar_componente()
-        
+
     elif option == "Remover Componente":
         st_remover_componente()
 
