@@ -3,7 +3,7 @@
 Sistema de Gerenciamento de Estoque desenvolvido como projeto integrador da disciplina PIJ110 da UNIVESP.
 
 **Empresa:** Mauricio Henrique Camargo | CNPJ: 11.458.173/0001-74 | Fundada em 2009
-**Especialidade:** Suporte Técnico e Manutenção em TI
+**Especialidade:** serviços e comercialização de produtos na área elétrica
 
 ---
 
